@@ -1,0 +1,27 @@
+[
+  {
+    'description': 'Schawarma a la viande hachee',
+    'place': 'JC Bastos',
+    'elements': [
+      { 'name': "Pain libanais" }
+    ]
+  },
+  {
+    'description': 'Pain haricot avec la serviette',
+    'elements': [
+      { 'name': "Pain", "price": '100'},
+      { 'name': "Haricot", "price": "200" },
+      { 'name': "Serviette", "price": "400" }
+    ],
+    'place': 'Ecole National Polytechnique'
+  },
+  {
+    'description': "Beignet haricot",
+    'elements': [
+      { 'name': "Beignet", "price": "400" },
+      { 'name': "Haricot", "price": "200" },
+      { 'name': "Bouillie", "price": "150" }
+    ],
+    'place': "Tchop & Yamoo"
+  }
+]

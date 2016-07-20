@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name" translatable="false">Soam</string>
+
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="already_have_account">Already have an account ?</string>
+    <string name="dont_have_account">You don\'t have an account ?</string>
+
+    <string name="post_needs">Post your needs</string>
+    <string name="post_needs_description">List what you want and where to want them to come from and a person will buy them for you</string>
+    <string name="make_run">Make a run</string>
+    <string name="make_run_description">Choose and make the run of your choice that you feel the most</string>
+    <string name="win_money">Win money every time</string>
+    <string name="win_money_description">At each run, you have a commission according to the amount of your run</string>
+
+    <string name="upload_picture">Upload an avatar</string>
+    <string name="select_picture">Select one of your picture to allow people to identify you</string>
+    <string name="sign_name">Full Name</string>
+    <string name="sign_email">Email</string>
+    <string name="sign_phone">Phone</string>
+    <string name="sign_password">Password</string>
+    <string name="sign_confirm_password">Confirm Password</string>
+    <string name="by_creating">By creating an account, you accept our</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="create_account">Create account</string>
+    <string name="forgot_password">I forgot my password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_sign_in">Sign In</string>
+    <string name="title_activity_home">Home</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

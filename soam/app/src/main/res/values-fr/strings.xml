@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Soam</string>
+    <string name="already_have_account">Avez vous déjà un compte ?</string>
+    <string name="win_money">Gagnez l\'argent à tout moment</string>
+    <string name="win_money_description">A chaque course effectuée, vous recevrez une commission sera dépendra du moment de la course effectuée</string>
+    <string name="post_needs">Poster vos besoins</string>
+    <string name="post_needs_description">Listez tout ce que vous voulez et le lieu où vous souhaitez vous approvisionnez et laissez quelqu\'un allez le chercher pour vous</string>
+    <string name="make_run">Faire une course</string>
+    <string name="make_run_description">Choisissez et effectuez la course de votre choix selon la façon dont vous la sentez</string>
+    <string name="by_creating">En créant un compte, vous acceptez nos</string>
+    <string name="terms_of_service">Conditions d\'Utilisations</string>
+    <string name="create_account">Créer un compte</string>
+    <string name="sign_confirm_password">Confirmer le mot de passe</string>
+    <string name="sign_name">Nom complet</string>
+    <string name="sign_password">Mot de Passe</string>
+    <string name="sign_phone">Téléphone</string>
+    <string name="dont_have_account">Vous n\'avez pas encore de compte ?</string>
+    <string name="forgot_password">J\'ai oublie mon mot de passe</string>
+</resources>
