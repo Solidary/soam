@@ -1,17 +1,27 @@
 package com.soam.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by maelfosso on 7/17/16.
  */
-public class Need {
+public class Need implements Serializable {
 
+    private String map;
     private String description;
     private String place;
     private List<Element> elements;
 
     public Need() {
+    }
+
+    public String getMap() {
+        return map;
+    }
+
+    public void setMap(String map) {
+        this.map = map;
     }
 
     public String getDescription() {

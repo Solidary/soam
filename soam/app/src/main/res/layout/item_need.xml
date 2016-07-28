@@ -3,48 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:cardElevation="@dimen/spacing_medium">
 
         <LinearLayout
+            android:id="@+id/lyt_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:id="@+id/description"
-                        android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:layout_marginRight="10dp"
-                        android:textStyle="bold"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        fontPath="montserrat/Montserrat-Bold.otf"
-                        android:maxLines="2"
-                        android:ellipsize="end"/>
+                    android:maxHeight="300dp">
 
                     <ImageView
-                        android:id="@+id/photo"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="0"
-                        android:src="@drawable/photo_female_2"/>
+                        android:id="@+id/map"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:clickable="true"
+                        android:maxHeight="300dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/feed_photo_1"/>
 
-                </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/description"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:layout_marginRight="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:textStyle="bold" android:textColor="@android:color/white"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:maxLines="2" android:ellipsize="end"/>
+
+                        <ImageView
+                            android:id="@+id/photo"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0"
+                            android:src="@drawable/photo_female_2"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="5dp">
 
                     <LinearLayout
                         android:id="@+id/lyt_elements"
@@ -82,7 +101,7 @@
                             android:id="@+id/amount"
                             android:layout_width="wrap_content" android:layout_height="wrap_content"
                             style="@style/TextAppearance.AppCompat.Caption"
-                            android:layout_gravity="bottom"/>
+                            android:layout_gravity="center_vertical" android:text="2000 F"/>
 
                     </LinearLayout>
 
@@ -93,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="5dp">
 
                     <ImageView
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -114,10 +133,21 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_layout_button"
                 android:padding="5dp">
 
-                <com.balysv.materialripple.MaterialRippleLayout
+                <TextView
+                    android:id="@+id/take_it"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:textAllCaps="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/i_take_it"/>
+
+                <!--<com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
@@ -146,7 +176,7 @@
                         android:textAllCaps="false"
                         style="@style/Widget.AppCompat.Button.Borderless"/>
 
-                </com.balysv.materialripple.MaterialRippleLayout>
+                </com.balysv.materialripple.MaterialRippleLayout>-->
 
             </LinearLayout>
 

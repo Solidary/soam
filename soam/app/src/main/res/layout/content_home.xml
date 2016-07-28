@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient_main"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:paddingTop="?attr/actionBarSize"
     tools:context="com.soam.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 

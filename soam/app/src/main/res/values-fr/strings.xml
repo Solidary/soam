@@ -17,4 +17,5 @@
     <string name="sign_phone">Téléphone</string>
     <string name="dont_have_account">Vous n\'avez pas encore de compte ?</string>
     <string name="forgot_password">J\'ai oublie mon mot de passe</string>
+    <string name="take_it">Je La Prends</string>
 </resources>

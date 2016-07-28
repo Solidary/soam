@@ -1,5 +1,6 @@
 [
   {
+    'map': "@drawable/feed_photo_3",
     'description': 'Schawarma a la viande hachee',
     'place': 'JC Bastos',
     'elements': [
@@ -7,6 +8,7 @@
     ]
   },
   {
+    'map': "@drawable/feed_photo_1",
     'description': 'Pain haricot avec la serviette',
     'elements': [
       { 'name': "Pain", "price": '100'},
@@ -16,6 +18,7 @@
     'place': 'Ecole National Polytechnique'
   },
   {
+    'map': "@drawable/feed_photo_2",
     'description': "Beignet haricot",
     'elements': [
       { 'name': "Beignet", "price": "400" },

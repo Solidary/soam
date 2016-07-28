@@ -42,6 +42,7 @@ public class SignInActivity extends AppCompatActivity
     private void setupToolbar() {
         toolbar.setTitleTextColor(0xFF32A75B);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_18dp);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
