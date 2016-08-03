@@ -15,207 +15,183 @@
         android:orientation="vertical"
         android:padding="@dimen/spacing_medium">
 
-        <android.support.v7.widget.CardView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="@dimen/spacing_medium"
-            app:cardElevation="@dimen/spacing_xsmall"
-            app:cardUseCompatPadding="true">
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:text="Description"
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"/>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_large"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:text="@string/lorem_ipsum"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:text="Details"
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/spacing_large"
+                    android:layout_height="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_marginRight="@dimen/spacing_medium"
+                    android:layout_marginLeft="@dimen/spacing_large"
+                    android:src="@drawable/database"/>
 
                 <TextView
+                    android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    android:layout_marginLeft="@dimen/spacing_large"
-                    android:layout_marginRight="@dimen/spacing_large"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:text="Description"
-                    android:textColor="@color/colorPrimary"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-                
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:background="@color/grey_soft"/>
-                
-                <TextView
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/spacing_large"
-                    android:text="@string/lorem_ipsum"/>
+                    android:layout_margin="@dimen/spacing_medium"
+                    android:text="2350 FCFA"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 
             </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="@dimen/spacing_medium"
-            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/spacing_large"
+                    android:layout_height="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_marginRight="@dimen/spacing_medium"
+                    android:layout_marginLeft="@dimen/spacing_large"
+                    android:src="@drawable/ic_place_black_18dp"/>
 
                 <TextView
+                    android:id="@+id/place"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:layout_marginRight="@dimen/spacing_large"
-                    android:layout_marginLeft="@dimen/spacing_large"
-                    android:text="Details"
-                    android:textColor="@color/colorPrimary"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:background="@color/grey_soft"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:layout_margin="@dimen/spacing_middle"
-                        android:src="@drawable/database"/>
-
-                    <TextView
-                        android:id="@+id/amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/spacing_medium"
-                        android:text="2350 FCFA"
-                        android:layout_gravity="bottom"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:layout_margin="@dimen/spacing_middle"
-                        android:src="@drawable/ic_place_black_18dp"/>
-
-                    <TextView
-                        android:id="@+id/place"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/spacing_medium"
-                        android:text="Dovv Bastos"
-                        android:layout_gravity="bottom"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:layout_margin="@dimen/spacing_middle"
-                        android:src="@drawable/ic_person_pin_circle_18pt"/>
-
-                    <TextView
-                        android:id="@+id/customer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/spacing_medium"
-                        android:text="Hopital General de Yaounde"
-                        android:layout_gravity="bottom"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:layout_width="@dimen/spacing_mlarge"
-                        android:layout_height="@dimen/spacing_mlarge"
-                        android:layout_margin="@dimen/spacing_middle"
-                        android:src="@drawable/ic_local_taxi_black_18dp"/>
-
-                    <TextView
-                        android:id="@+id/taxi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/spacing_medium"
-                        android:text="250 + 350 FCFA"
-                        android:layout_gravity="bottom"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-                </LinearLayout>
+                    android:layout_margin="@dimen/spacing_medium"
+                    android:text="Dovv Bastos"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 
             </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="@dimen/spacing_medium"
-            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/spacing_large"
+                    android:layout_height="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_marginRight="@dimen/spacing_medium"
+                    android:layout_marginLeft="@dimen/spacing_large"
+                    android:src="@drawable/ic_person_pin_circle_18pt"/>
 
                 <TextView
+                    android:id="@+id/customer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    android:layout_marginRight="@dimen/spacing_large"
-                    android:layout_marginLeft="@dimen/spacing_large"
-                    android:text="Elements"
-                    android:textColor="@color/colorPrimary"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:background="@color/grey_soft"/>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/elements"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"/>
+                    android:layout_margin="@dimen/spacing_medium"
+                    android:text="Hopital General de Yaounde"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/spacing_large"
+                    android:layout_height="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_marginRight="@dimen/spacing_medium"
+                    android:layout_marginLeft="@dimen/spacing_large"
+                    android:src="@drawable/ic_local_taxi_black_18dp"/>
+
+                <TextView
+                    android:id="@+id/taxi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_medium"
+                    android:text="250 + 350 FCFA"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:text="Elements"
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/elements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

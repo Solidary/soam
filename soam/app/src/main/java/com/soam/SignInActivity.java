@@ -16,6 +16,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class SignInActivity extends AppCompatActivity
         implements View.OnClickListener {
 
+    public final static String PARAM_USERNAME = "username";
+    public final static String PARAM_AUTH_TOKEN_TYPE = "auth_token_type";
+
+
     Toolbar toolbar;
 
     Button signIn;
@@ -58,15 +62,18 @@ public class SignInActivity extends AppCompatActivity
         Class c = null;
         switch (view.getId()) {
             case R.id.sign_in:
-                c = HomeActivity.class;
+                Intent intenth = new Intent(this, HomeActivity.class);
+                startActivity(intenth);
+
                 break;
 
             case R.id.sign_up:
                 c = SignUpActivity.class;
+                Intent intent = new Intent(this, c);
+                startActivity(intent);
                 break;
         }
 
-        Intent intent = new Intent(this, c);
-        startActivity(intent);
+
     }
 }

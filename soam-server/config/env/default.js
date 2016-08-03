@@ -45,5 +45,18 @@ module.exports = {
         fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
       }
     }
-  }
+  },
+
+    token: {
+    	secret: process.env.TOKEN_SECRET  || 'Soam --- Fosso --- Tetka',
+    	expiration: process.env.TOKEN_EXPIRATION || 60 * 60 * 24
+    },
+
+    redis: {
+    	host: process.env.REDIS_HOST || '127.0.0.1',
+    	port: process.env.REDIS_PORT || 6379,
+    	options: {
+
+    	}
+    }
 };

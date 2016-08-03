@@ -28,21 +28,26 @@ var validateLocalStrategyEmail = function (email) {
  * User Schema
  */
 var UserSchema = new Schema({
-  firstName: {
+  // firstName: {
+  //   type: String,
+  //   trim: true,
+  //   default: '',
+  //   validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+  // },
+  // lastName: {
+  //   type: String,
+  //   trim: true,
+  //   default: '',
+  //   validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  // },
+  // displayName: {
+  //   type: String,
+  //   trim: true
+  // },
+  name: {
     type: String,
     trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-  },
-  lastName: {
-    type: String,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-  },
-  displayName: {
-    type: String,
-    trim: true
+    validate: [validateLocalStrategyProperty, "Please fill in your name"]
   },
   email: {
     type: String,
@@ -55,13 +60,19 @@ var UserSchema = new Schema({
     default: '',
     validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
-  username: {
+  phone: {
     type: String,
-    unique: 'Username already exists',
-    required: 'Please fill in a username',
-    lowercase: true,
+    unique: 'Phone Number already exists',
+    required: 'Please fill in your phone number',
     trim: true
   },
+  // username: {
+  //   type: String,
+  //   unique: 'Username already exists',
+  //   required: 'Please fill in a username',
+  //   lowercase: true,
+  //   trim: true
+  // },
   password: {
     type: String,
     default: ''
@@ -151,6 +162,30 @@ UserSchema.methods.authenticate = function (password) {
 /**
  * Find possible not used username
  */
+UserSchema.statics.findUniquePhoneOrEmail = function (email, phone, suffix, callback) {
+   var _this = this;
+   // var possibleUsername = username.toLowerCase() + (suffix || '');
+   var possibleEmail = email.toLowerCase() + (suffix || '');
+   var possiblePhone = phone.toLowerCase() + (suffix || '');
+
+   _this.findOne({
+       $or: [
+           { email: possibleEmail },
+           { phone: possiblePhone }
+       ]
+   }, function (err, user) {
+     if (!err) {
+       if (!user) {
+         callback(possibleEmail, possiblePhone);
+       } else {
+         return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
+       }
+     } else {
+       callback(null);
+     }
+   });
+ };
+
 UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
   var _this = this;
   var possibleUsername = username.toLowerCase() + (suffix || '');

@@ -7,7 +7,9 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
-  User = mongoose.model('User');
+  User = mongoose.model('User'),
+
+  token = require('./users.token.server.controller');
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
@@ -21,12 +23,12 @@ var noReturnUrls = [
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
-
+  console.log(req.body);
   // Init user and add missing fields
   var user = new User(req.body);
   user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
-
+  // user.displayName = user.firstName + ' ' + user.lastName;
+  console.log(user);
   // Then save the user
   user.save(function (err) {
     if (err) {
@@ -38,13 +40,24 @@ exports.signup = function (req, res) {
       user.password = undefined;
       user.salt = undefined;
 
-      req.login(user, function (err) {
+      /*req.login(user, function (err) {
         if (err) {
           res.status(400).send(err);
         } else {
           res.json(user);
         }
-      });
+        });*/
+        token.createToken(user, function(res, err, token) {
+  				if (err) {
+  					logger.error(err);
+  					return res.status(400).send(err);
+  				}
+
+  				res.status(201).json({
+  					user: user,
+  					token: token
+  				});
+  			}.bind(null, res));
     }
   });
 };
@@ -61,13 +74,25 @@ exports.signin = function (req, res, next) {
       user.password = undefined;
       user.salt = undefined;
 
-      req.login(user, function (err) {
+      /*req.login(user, function (err) {
         if (err) {
           res.status(400).send(err);
         } else {
           res.json(user);
         }
-      });
+        });*/
+        token.createToken(user, function(res, err, token) {
+				if (err) {
+					logger.error(err);
+					return res.status(400).send(err);
+				}
+
+				res.status(201).json({
+					user: user,
+					token: token
+				});
+			}.bind(null, res));
+
     }
   })(req, res, next);
 };
@@ -76,8 +101,22 @@ exports.signin = function (req, res, next) {
  * Signout
  */
 exports.signout = function (req, res) {
-  req.logout();
-  res.redirect('/');
+  /*req.logout();
+  res.redirect('/');*/
+  token.expireToken(req.headers, function(err, success) {
+		if (err) {
+			logger.error(err.message);
+
+			return res.status(401).send(err.message);
+		}
+
+		if (success) {
+			delete req.user;
+			res.sendStatus(200);
+		} else {
+			res.sendStatus(401);
+		}
+	});
 };
 
 /**
@@ -229,13 +268,25 @@ exports.removeOAuthProvider = function (req, res, next) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      req.login(user, function (err) {
+      /*req.login(user, function (err) {
         if (err) {
           return res.status(400).send(err);
         } else {
           return res.json(user);
         }
-      });
+    });*/
+
+    token.createToken(user, function(res, err, token) {
+            if (err) {
+                logger.error(err);
+                return res.status(400).send(err);
+            }
+
+            res.status(201).json({
+                user: user,
+                token: token
+            });
+        }.bind(null, res));
     }
   });
 };
