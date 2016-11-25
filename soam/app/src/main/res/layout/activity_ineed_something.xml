@@ -12,55 +12,83 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="match_parent">
 
-            <FrameLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/white"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
-                <ImageButton
-                    android:id="@+id/cancel_action"
-                    android:layout_width="?attr/actionBarSize"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_gravity="start|center_vertical"
-                    android:src="@drawable/ic_close_white"
-                    style="@style/Widget.AppCompat.ActionButton"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <ImageButton
-                    android:id="@+id/ok_action"
-                    android:layout_width="?attr/actionBarSize"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_gravity="end|center_vertical"
-                    android:src="@drawable/ic_check_white"
-                    style="@style/Widget.AppCompat.ActionButton"/>
+                    <ImageButton
+                        android:id="@+id/cancel_action"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="start|center_vertical"
+                        android:src="@drawable/ic_close_green"
+                        style="@style/Widget.AppCompat.ActionButton"/>
 
-            </FrameLayout>
+                    <ImageButton
+                        android:id="@+id/ok_action"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="end|center_vertical"
+                        android:src="@drawable/ic_check_green"
+                        style="@style/Widget.AppCompat.ActionButton"
+                        android:visibility="gone"/>
 
-        </android.support.v7.widget.Toolbar>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical">
+
+                        <ImageButton
+                            android:id="@+id/previous"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_back_green_18dp"
+                            android:clickable="true" android:visibility="gone"
+                            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+                        <ImageButton
+                            android:id="@+id/next"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:layout_gravity="end|center_vertical"
+                            android:src="@drawable/ic_arrow_forward_green_18dp"
+                            style="@style/Widget.AppCompat.Button.Borderless"/>
+
+                    </LinearLayout>
+                </FrameLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_search"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </FrameLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <include layout="@layout/content_ineed_something" />
-
-    </android.support.v4.widget.NestedScrollView>
-
-<!--
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />-->
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

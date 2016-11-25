@@ -46,7 +46,6 @@ public class SignUpActivity extends AppCompatActivity
 
     Button createAccount;
 
-
     AccountManager accountManager;
 
     @Override
@@ -82,9 +81,8 @@ public class SignUpActivity extends AppCompatActivity
 
     private void setupToolbar() {
         toolbar.setTitleTextColor(0xFF32A75B);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_18dp);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_green_18dp);
         setSupportActionBar(toolbar);
-
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -121,18 +119,18 @@ public class SignUpActivity extends AppCompatActivity
                 user.setPhone(phone.getText().toString());
                 user.setPassword(password.getText().toString());
 
-                UserAuthenticationApi userAuthenticationApi =
+                UserAuthenticationApi api =
                         ApiRetrofit.create(UserAuthenticationApi.class);
-                Call<AuthResponse> call = userAuthenticationApi.signUp(user);
+                Call<AuthResponse> call = api.signUp(user);
 
                 Log.d(TAG, ApiRetrofit.SOAM_BASE_API_URL);
                 call.enqueue(new Callback<AuthResponse>() {
                     @Override
                     public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                        int status = response.code();
-                        boolean successful = response.isSuccessful();
 
                         if (response.isSuccessful()) {
+                            Log.d(TAG, "Sign Up Successed");
+
                             AuthResponse authResponse = response.body();
                             User user = authResponse.getUser();
                             String token = authResponse.getToken();
@@ -140,23 +138,24 @@ public class SignUpActivity extends AppCompatActivity
                             Log.d(TAG, authResponse.getToken());
                             Log.d(TAG, authResponse.getUser().toString());
 
-                            Account account = new Account(user.getEmail(), ACCOUNT_TYPE);
-                            Bundle userData = new Bundle();
-                            // userData.putString("user", user.getEmail());
-                            // accountManager.addAccountExplicitly(account, user.getPassword(), null);
+                            Account account = new Account(user.getPhone(), ACCOUNT_TYPE);
                             accountManager.addAccountExplicitly(account, token, null);
                             accountManager.setAuthToken(account, AUTH_TOKEN_TYPE, token);
+
+                            AuthPreferences.setUser(getBaseContext(), user);
+                            AuthPreferences.setToken(getBaseContext(), token);
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             ApiError error = ApiRetrofit.parse(response);
 
-                            Log.d(TAG, error.getMessage());
+                            Log.e(TAG, "Sign Up Failed");
+                            Log.e(TAG, error.getMessage());
                             Snackbar.make(view, error.getMessage(), Snackbar.LENGTH_LONG)
                                     // .setAction("Action", null)
                                     .show();
                         }
-
-                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(intent);
                     }
 
                     @Override

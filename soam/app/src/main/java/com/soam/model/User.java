@@ -1,15 +1,27 @@
 package com.soam.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.soam.api.ApiRetrofit;
+
+import java.io.Serializable;
+
 /**
  * Created by maelfosso on 7/31/16.
  */
-public class User {
+public class User implements Serializable {
 
+    @SerializedName("_id")
     private String id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("email")
     private String email;
+    @SerializedName("phone")
     private String phone;
+    @SerializedName("password")
     private String password;
+    @SerializedName("profileImageURL")
+    private String profileImageUrl;
 
 
     public User() {}
@@ -54,6 +66,14 @@ public class User {
         this.password = password;
     }
 
+    public String getProfileImageUrl() {
+        return ApiRetrofit.SOAM_BASE_API_URL + profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -62,6 +82,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
                 '}';
     }
 }

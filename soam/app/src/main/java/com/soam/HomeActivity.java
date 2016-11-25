@@ -1,5 +1,6 @@
 package com.soam;
 
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,26 +22,43 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.soam.adapter.NeedListAdapter;
 import com.soam.model.Need;
+import com.soam.model.User;
 import com.soam.utils.Constants;
 import com.soam.utils.Tools;
 import com.soam.utils.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, NeedListAdapter.OnNeedClickListener {
+
+    public final static String TAG = HomeActivity.class.getName();
 
     NavigationView navigationView;
     Toolbar toolbar;
     RecyclerView recyclerView;
     FloatingActionButton fab;
 
-
     NeedListAdapter adapter;
+
+    String argPhone;
+    Socket socket;
+    Boolean isConnected;
+
+    String authToken;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +67,6 @@ public class HomeActivity extends AppCompatActivity
         initComponents();
         setupToolbar();
         setupRecyclerView();
-        // setupNavigationView();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,11 +81,24 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         setupNavigationView();
 
-        if (Tools.getAPIVerison() >= 5.0) {
+       /* if (Tools.getAPIVerison() >= 5.0) {
             View toolbarShadow = (View) findViewById(R.id.toolbar_shadow);
             toolbarShadow.setVisibility(View.GONE);
-        }
+        }*/
         Tools.systemBarLolipop(this);
+
+        // argPhone = (String) getIntent().getStringExtra(SignInActivity.ARG_PHONE);
+        // authToken = getIntent().getExtras().getString(AccountManager.KEY_AUTHTOKEN);
+
+        socket = ((SoamApplication)getApplication()).getSocket();
+        socket.on(Socket.EVENT_CONNECT, onConnect);
+        socket.on(Socket.EVENT_DISCONNECT, onDisconnect);
+        socket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        socket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        socket.on(Socket.EVENT_ERROR, onError);
+        socket.on("unauthorized", onUnAuthorized);
+
+        socket.connect();
     }
 
     private void initComponents() {
@@ -104,18 +135,21 @@ public class HomeActivity extends AppCompatActivity
         TextView email = (TextView) navHeader.findViewById(R.id.email);
         TextView phone = (TextView) navHeader.findViewById(R.id.phone);
 
-        Picasso.with(this).load(R.drawable.photo_male_2)
+        User user = AuthPreferences.getUser(this);
+        Log.d(TAG, user.toString());
+        Picasso.with(this).load(user.getProfileImageUrl())
                 .resize(250,250)
                 .transform(new CircleTransform())
                 .into(image);
-        name.setText("Soam SOFEL");
-        email.setText("soam.sofel@soam.org");
-        phone.setText("699842531");
+        name.setText(user.getName());
+        email.setText(user.getEmail());
+        phone.setText(user.getPhone());
+
     }
 
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new NeedListAdapter(this, Constants.getNeedsData(this));
+        adapter = new NeedListAdapter(this, new ArrayList<Need>()); // Constants.getNeedsData(this));
         adapter.setOnNeedClickListener(this);
         recyclerView.setAdapter(adapter);
     }
@@ -157,6 +191,20 @@ public class HomeActivity extends AppCompatActivity
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        socket.disconnect();
+        socket.off(Socket.EVENT_CONNECT, onConnect);
+        socket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+        socket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        socket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        socket.off(Socket.EVENT_ERROR, onError);
+        socket.off("unauthorized", onUnAuthorized);
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -188,4 +236,73 @@ public class HomeActivity extends AppCompatActivity
         intent.putExtra(NeedActivity.EXTRA_OBJ_NEED, need);
         startActivity(intent);
     }
+
+
+    private Emitter.Listener onConnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            isConnected = true;
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getBaseContext(), "Connected...", Toast.LENGTH_LONG)
+                            .show();
+                    isConnected = true;
+
+                    // socket.emit("Welcome", argPhone);
+                }
+            });
+        }
+    };
+    private Emitter.Listener onDisconnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            isConnected = false;
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getBaseContext(), "Disconnected....", Toast.LENGTH_LONG)
+                            .show();
+                    isConnected = false;
+                }
+            });
+        }
+    };
+    private Emitter.Listener onConnectError = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            isConnected = false;
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getBaseContext(), "Failed to connect...", Toast.LENGTH_LONG)
+                            .show();
+                    isConnected = false;
+                }
+            });
+        }
+    };
+    private Emitter.Listener onError = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+
+        }
+    };
+    private Emitter.Listener onUnAuthorized = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    String data = (String) args[0];
+
+                    Toast.makeText(getBaseContext(), data, Toast.LENGTH_LONG)
+                            .show();
+                }
+            });
+        }
+    };
 }

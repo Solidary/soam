@@ -10,16 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@android:color/white"
         android:elevation="@dimen/spacing_large"
+        app:title="@string/title_activity_home"
+        app:titleTextColor="@color/colorPrimary"
         app:theme="@style/ToolbarTheme"
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <View
+    <!--<View
         android:id="@+id/toolbar_shadow"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="@drawable/toolbar_shadow" />
+        android:background="@drawable/toolbar_shadow" />-->
 
 </LinearLayout>

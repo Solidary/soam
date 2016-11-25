@@ -18,4 +18,7 @@
     <string name="dont_have_account">Vous n\'avez pas encore de compte ?</string>
     <string name="forgot_password">J\'ai oublie mon mot de passe</string>
     <string name="take_it">Je La Prends</string>
+    <string name="hint_description">Description</string>
+    <string name="next">Suivant</string>
+    <string name="previous">Precedent</string>
 </resources>

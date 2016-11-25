@@ -17,12 +17,17 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.soam.fragment.WizardFragment;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -161,7 +166,6 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    
     public class WizardPageListener implements ViewPager.OnPageChangeListener {
 
         @Override

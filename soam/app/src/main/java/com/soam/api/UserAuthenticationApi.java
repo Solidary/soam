@@ -23,6 +23,9 @@ public interface UserAuthenticationApi {
     @POST("/api/auth/signin")
     Call<AuthResponse> signIn(@Field("email") String email, @Field("password") String password);
 
+    @GET("/api/auth/refresh")
+    Call<String> refresh();
+
     @GET("/api/users/me")
     Call<User> me();
 

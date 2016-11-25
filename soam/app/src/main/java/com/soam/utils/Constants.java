@@ -7,7 +7,9 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.soam.model.Element;
 import com.soam.model.Need;
+import com.soam.model.Place;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -103,6 +105,30 @@ public class Constants {
         gsonBuilder.setDateFormat(ISO_FORMAT);
         Gson gson = gsonBuilder.create();
         List<Need> items = gson.fromJson(loadJSONFromAsset(ctx, "needs.json"), NeedCollectionType);
+
+        return items;
+    }
+
+    public static List<Place> getPlacesData(Context ctx) {
+        String ISO_FORMAT = "dd-MM-yyyy'T'HH:mm";
+
+        Type NeedCollectionType = new TypeToken<List<Place>>(){}.getType();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setDateFormat(ISO_FORMAT);
+        Gson gson = gsonBuilder.create();
+        List<Place> items = gson.fromJson(loadJSONFromAsset(ctx, "places.json"), NeedCollectionType);
+
+        return items;
+    }
+
+    public static List<Element> getElementsData(Context ctx) {
+        String ISO_FORMAT = "dd-MM-yyyy'T'HH:mm";
+
+        Type NeedCollectionType = new TypeToken<List<Element>>(){}.getType();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setDateFormat(ISO_FORMAT);
+        Gson gson = gsonBuilder.create();
+        List<Element> items = gson.fromJson(loadJSONFromAsset(ctx, "elements.json"), NeedCollectionType);
 
         return items;
     }
