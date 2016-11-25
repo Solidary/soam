@@ -103,7 +103,8 @@ var verifyToken = function(headers, cb) {
 };
 
 module.exports = {
-    createToken: createToken,
-    expireToken: expireToken,
-    verifyToken: verifyToken
+  extractToken: extractToken,
+  createToken: createToken,
+  expireToken: expireToken,
+  verifyToken: verifyToken
 };

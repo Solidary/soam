@@ -13,7 +13,23 @@
     "angular-resource": "~1.5.0",
     "angular-ui-router": "~0.2.18",
     "bootstrap": "~3.3.6",
-    "owasp-password-strength-test": "~1.3.0"
+    "owasp-password-strength-test": "~1.3.0",
+    "html5shiv": "^3.7.3",
+    "ajaxchimp": "^1.3.0",
+    "fitvids": "^1.2.0",
+    "jquery": "^1.10.2",
+    "jquery-navScroll": "jquery-nav-scroll#^1.4.0",
+    "jquery.scrollTo": "^2.1.2",
+    "jquery.stellar": "^0.6.2",
+    "matchmedia-ng": "^1.0.8",
+    "nivo-lightbox": "^1.3.1",
+    "owl.carousel": "^2.2.0",
+    "retinajs": "retina.js#^2.1.0",
+    "respond": "^1.4.2",
+    "jquery-simple-expand": "*",
+    "wow": "wowjs#^1.1.2",
+    "jquery.onepage-scroll": "^1.1.10",
+    "components-font-awesome": "^4.7.0"
   },
   "overrides": {
     "bootstrap": {

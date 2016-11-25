@@ -101,5 +101,7 @@ exports.changeProfilePicture = function (req, res) {
  * Send User
  */
 exports.me = function (req, res) {
-  res.json(req.user || null);
+  console.log(req.user);
+  console.log(req.user._doc);
+  res.json(req.user._doc);
 };

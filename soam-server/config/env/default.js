@@ -2,7 +2,7 @@
 
 module.exports = {
   app: {
-    title: 'MEAN.JS',
+    title: 'Peti\'Commissionaire',
     description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
     keywords: 'mongodb, express, angularjs, node.js, mongoose, passport',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
@@ -47,16 +47,14 @@ module.exports = {
     }
   },
 
-    token: {
-    	secret: process.env.TOKEN_SECRET  || 'Soam --- Fosso --- Tetka',
-    	expiration: process.env.TOKEN_EXPIRATION || 60 * 60 * 24
-    },
+  token: {
+  	secret: process.env.TOKEN_SECRET  || 'Soam --- Fosso --- Mael',
+  	expiration: process.env.TOKEN_EXPIRATION || 60 * 60 * 24
+  },
 
-    redis: {
-    	host: process.env.REDIS_HOST || '127.0.0.1',
-    	port: process.env.REDIS_PORT || 6379,
-    	options: {
-
-    	}
-    }
+  redis: {
+  	host: process.env.REDIS_HOST || '127.0.0.1',
+  	port: process.env.REDIS_PORT || 6379,
+  	options: {}
+  }
 };

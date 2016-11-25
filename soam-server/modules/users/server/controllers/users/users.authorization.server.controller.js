@@ -30,3 +30,7 @@ exports.userByID = function (req, res, next, id) {
     next();
   });
 };
+
+exports.requiredLoginToken = function(req, res, next) {
+  
+}

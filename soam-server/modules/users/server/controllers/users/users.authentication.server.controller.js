@@ -9,7 +9,11 @@ var path = require('path'),
   passport = require('passport'),
   User = mongoose.model('User'),
 
-  token = require('./users.token.server.controller');
+  jwt = require('jsonwebtoken'),
+  jwtDecode = require('jwt-decode'),
+  token = require('./users.token.server.controller'),
+  config = require('../../../../../config/config'),
+  redis = require('../../../../../config/redis');
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
@@ -47,17 +51,19 @@ exports.signup = function (req, res) {
           res.json(user);
         }
         });*/
-        token.createToken(user, function(res, err, token) {
-  				if (err) {
-  					logger.error(err);
-  					return res.status(400).send(err);
-  				}
+      req.user = user;
 
-  				res.status(201).json({
-  					user: user,
-  					token: token
-  				});
-  			}.bind(null, res));
+      token.createToken(user, function(res, err, token) {
+				if (err) {
+					logger.error(err);
+					return res.status(400).send(err);
+				}
+
+				res.status(201).json({
+					user: user,
+					token: token
+				});
+			}.bind(null, res));
     }
   });
 };
@@ -68,6 +74,7 @@ exports.signup = function (req, res) {
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err || !user) {
+      console.log(info);
       res.status(400).send(info);
     } else {
       // Remove sensitive data before login
@@ -81,7 +88,11 @@ exports.signin = function (req, res, next) {
           res.json(user);
         }
         });*/
-        token.createToken(user, function(res, err, token) {
+
+      // req.user = user;
+
+      // token.createToken(user, function(res, err, token) {
+      token.createToken(user.toString(), function(res, err, token) {
 				if (err) {
 					logger.error(err);
 					return res.status(400).send(err);
@@ -118,6 +129,49 @@ exports.signout = function (req, res) {
 		}
 	});
 };
+
+
+/**
+ * Refresh user token
+ */
+exports.refresh = function (req, res) {
+  var headers = req.headers;
+  if (headers == null) {
+      throw new Error('headers is null');
+  }
+  if (headers.authorization == null) {
+      throw new Error('authorization header is null');
+  }
+
+  var authorization = headers.authorization;
+  var authArr = authorization.split(' ');
+  if (authArr.length !== 2) {
+      throw new Error('authorization header value is not of length 2');
+  }
+  var t = authArr[1];
+  console.log("Extract Token :: " +  t);
+
+  var decode = jwtDecode(t);
+  console.log("Decode");
+  console.log(decode);
+
+  var ttl = config.token.expiration;
+  console.log(ttl);
+  redis.setex(t, ttl, JSON.stringify(decode._doc), function(token, err, reply) {
+      if (err) {
+        console.log(err);
+          return cb(err);
+      }
+
+    res.status(201).json(t);
+      // if (reply) {
+      //     cb(null, t);
+      // } else {
+      //     cb(new Error('token not set in redis'));
+      // }
+  }.bind(null, token));
+
+}
 
 /**
  * OAuth provider call
@@ -276,17 +330,17 @@ exports.removeOAuthProvider = function (req, res, next) {
         }
     });*/
 
-    token.createToken(user, function(res, err, token) {
-            if (err) {
-                logger.error(err);
-                return res.status(400).send(err);
-            }
+      token.createToken(user, function(res, err, token) {
+        if (err) {
+          logger.error(err);
+          return res.status(400).send(err);
+        }
 
-            res.status(201).json({
-                user: user,
-                token: token
-            });
-        }.bind(null, res));
+        res.status(201).json({
+          user: user,
+          token: token
+        });
+      }.bind(null, res));
     }
   });
 };

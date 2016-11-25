@@ -1,5 +1,8 @@
 package com.soam;
 
+import com.soam.adapter.PageAdapter;
+
+
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -17,10 +20,13 @@ import android.widget.TextView;
 
 import com.soam.fragment.WizardFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class WizardActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements View.OnClickListener {
 
     ViewPager pager;
@@ -28,7 +34,7 @@ public class WizardActivity extends AppCompatActivity
     TextView signIn;
     View first, second, third;
 
-    WizardPageAdapter adapter;
+    PageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +60,18 @@ public class WizardActivity extends AppCompatActivity
     }
 
     private void setupViewPager() {
-        adapter = new WizardPageAdapter(this.getBaseContext(), getSupportFragmentManager());
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(WizardFragment.newInstance("@drawable/post_run",
+                getResources().getString(R.string.post_needs),
+                getResources().getString(R.string.post_needs_description)));
+        fragments.add(WizardFragment.newInstance("@drawable/post_run",
+                getResources().getString(R.string.make_run),
+                getResources().getString(R.string.make_run_description)));
+        fragments.add(WizardFragment.newInstance("@drawable/post_run",
+                getResources().getString(R.string.win_money),
+                getResources().getString(R.string.win_money_description)));
+
+        adapter = new PageAdapter(this.getBaseContext(), fragments, getSupportFragmentManager());
         pager.setAdapter(adapter);
         pager.setOnPageChangeListener(new WizardPageListener());
         updateWizardIndicators(0);
@@ -144,48 +161,7 @@ public class WizardActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    public class WizardPageAdapter extends FragmentPagerAdapter {
-
-        Context context;
-        public WizardPageAdapter(Context ctx, FragmentManager fm) {
-            super(fm);
-
-            this.context = ctx;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return WizardFragment.newInstance("@drawable/post_run",
-                            context.getResources().getString(R.string.post_needs),
-                            context.getResources().getString(R.string.post_needs_description));
-
-                case 1:
-                    return WizardFragment.newInstance("@drawable/post_run",
-                            context.getResources().getString(R.string.make_run),
-                            context.getResources().getString(R.string.make_run_description));
-
-                case 2:
-                    return WizardFragment.newInstance("@drawable/post_run",
-                            context.getResources().getString(R.string.win_money),
-                            context.getResources().getString(R.string.win_money_description));
-            }
-
-            return null;
-        }
-    }
-
+    
     public class WizardPageListener implements ViewPager.OnPageChangeListener {
 
         @Override

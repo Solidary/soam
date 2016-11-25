@@ -1,50 +1,86 @@
-<div class="container" ng-controller="HeaderController as vm">
-  <div class="navbar-header">
-    <button class="navbar-toggle" type="button" ng-click="vm.isCollapsed = !vm.isCollapsed">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a ui-sref="home" class="navbar-brand">MEAN.JS</a>
-  </div>
-  <nav class="navbar-collapse" uib-collapse="!vm.isCollapsed" role="navigation">
-    <ul class="nav navbar-nav" ng-if="vm.menu.shouldRender(vm.authentication.user);">
-      <li ng-repeat="item in vm.menu.items | orderBy: 'position'" ng-if="item.shouldRender(vm.authentication.user);" ng-switch="item.type" ng-class="{ dropdown: item.type === 'dropdown' }" ui-sref-active="active" class="{{item.class}}" uib-dropdown="item.type === 'dropdown'">
-        <a ng-switch-when="dropdown" class="dropdown-toggle" uib-dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
-        <ul ng-switch-when="dropdown" class="dropdown-menu">
-          <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(vm.authentication.user);">
-            <a ui-sref="{{subitem.state}}" ng-bind="subitem.title"></a>
-          </li>
-        </ul>
-        <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right" ng-hide="vm.authentication.user">
-      <li ui-sref-active="active">
-        <a ui-sref="authentication.signup">Sign Up</a>
-      </li>
-      <li class="divider-vertical"></li>
-      <li ui-sref-active="active">
-        <a ui-sref="authentication.signin">Sign In</a>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
-      <li class="dropdown" uib-dropdown>
-        <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
-          <img ng-src="{{vm.authentication.user.profileImageURL}}" alt="{{vm.authentication.user.displayName}}" class="header-profile-image" />
-          <span ng-bind="vm.authentication.user.displayName"></span> <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-          <li ui-sref-active="active" ng-repeat="item in vm.accountMenu.items">
-            <a ui-sref="{{item.state}}" ng-bind="item.title"></a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a href="/api/auth/signout" target="_self">Signout</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
+<!-- <div class="color-overlay"> <!-- To make header full screen. Use .full-screen class with color overlay. Example: <div class="color-overlay full-screen">  -->
+<div class="color-overlay">
+	<div role="navigation" class="navbar navbar-default navbar-fixed-top" style="background-color: transparent; border-color: transparent;">
+				<!-- start: TOP NAVIGATION CONTAINER -->
+		<div class="container">
+			<div class="navbar-header">
+				<!-- start: RESPONSIVE MENU TOGGLER -->
+				<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!-- end: RESPONSIVE MENU TOGGLER -->
+				<!-- start: LOGO -->
+				<a class="navbar-brand" href="index.html">
+					<!-- CLIP<i class="clip-clip"></i>ONE -->
+					<span style="font-weight: 300; color: black;">N'KAP SI</span>
+				</a>
+				<!-- end: LOGO -->
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="index.html">Accueil</a></li>
+					<li><a href="#">Quel est cette plateforme</a></li>
+					<li><a href="#">Vouloir quelque chose</a></li>
+					<li><a href="#">Devenir coursier</a></li>
+					<li><a href="#">Questions</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- end: TOP NAVIGATION CONTAINER -->
+	</div>
+
+	<div class="container">
+
+		<div class="row home-contents">
+			<div class="col-md-6 col-sm-6" style="margin-top: 5em;">
+				<div class="intro-section">
+					<h2 class="intro">Ce que vous voulez </br>Ou vous voulez</br> Quand vous voulez</h2>
+
+					<div class="buttons" id="download-button">
+						<a href="#"><img src="modules/core/client/images/google-play-badge.png" style="height:5em;"/></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 col-sm-6 hidden-xs">
+			    <div class="phone-image">
+			    <img src="modules/core/client/images/2-iphone-right.png" class="img-responsive" alt="">
+			    </div>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<div class="footer-copyright" style="margin-top: 0px; border-top: initial; background: initial;">
+			<div class="container">
+					<div class="row">
+						<div class="col-md-1">
+							<a class="logo" href="index.html">
+								N'KAP SI
+							</a>
+						</div>
+						<div class="col-md-7">
+							<p>
+								&copy; Copyright 2016 by N'Kap Si. All Rights Reserved.
+							</p>
+						</div>
+						<div class="col-md-4">
+							<nav id="sub-menu">
+								<ul>
+									<li>
+										<a href="#">FAQ's</a>
+									</li>
+									<li>
+										<a href="#">Contact</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </div>

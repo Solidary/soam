@@ -19,7 +19,10 @@ var config = require('../config'),
   consolidate = require('consolidate'),
   path = require('path'),
   _ = require('lodash'),
-  lusca = require('lusca');
+  lusca = require('lusca'),
+
+  jwt = require('express-jwt');
+  // unless = require('express-unless');
 
 /**
  * Initialize local variables
@@ -92,6 +95,19 @@ module.exports.initMiddleware = function (app) {
   // Add the cookie parser and flash middleware
   app.use(cookieParser());
   app.use(flash());
+
+  // jwt.unless = unless;
+  app.all('/api', jwt({ secret: config.token.secret }).unless({
+    path: [
+      '/api/auth/refresh',
+      '/api/auth/*'
+    ]
+  }));
+  app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+      res.status(401).send('invalid token...');
+    }
+  });
 };
 
 /**

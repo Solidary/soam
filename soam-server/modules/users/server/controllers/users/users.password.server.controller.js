@@ -30,11 +30,14 @@ exports.forgot = function (req, res, next) {
     function (token, done) {
       if (req.body.username) {
         User.findOne({
-          username: req.body.username.toLowerCase()
+          // username: req.body.username.toLowerCase()
+          // phone: req.body.phone.toLowerCase()
+          email: req.body.email.toLowerCase()
         }, '-salt -password', function (err, user) {
           if (err || !user) {
             return res.status(400).send({
-              message: 'No account with that username has been found'
+              // message: 'No account with that username has been found'
+              message: 'No account with that email has been found'
             });
           } else if (user.provider !== 'local') {
             return res.status(400).send({
@@ -51,7 +54,8 @@ exports.forgot = function (req, res, next) {
         });
       } else {
         return res.status(400).send({
-          message: 'Username field must not be blank'
+          // message: 'Username field must not be blank'
+          message: 'Phone number or Email field must not be blank'
         });
       }
     },

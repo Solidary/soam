@@ -36,7 +36,16 @@
 </head>
 
 <body class="ng-cloak">
-  <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
+
+  <!-- <header ng-include="'/modules/core/client/views/header.client.view.html'"
+          class="navbar navbar-fixed-top navbar-inverse header"
+          data-stellar-background-ratio="0.5" id="home">
+ </header> -->
+ <header ng-include="'/modules/core/client/views/header.client.view.html'"
+         class="header"
+         data-stellar-background-ratio="0.5" id="home">
+</header>
+
   <section class="content">
     <section class="container">
       {% block content %}{% endblock %}
@@ -53,7 +62,16 @@
 
   <!--Application JavaScript Files-->
   {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
-
+  <!-- <script src="modules/core/client/js/custom.js"></script> -->
+  <!-- <script src="modules/core/client/js/main.js"></script> -->
+  <!-- <script src="modules/core/client/js/index.js"></script> -->
+  <script>
+		jQuery(document).ready(function() {
+			Main.init();
+			Index.init();
+			$.stellar();
+		});
+	</script>
   {% if livereload %}
   <!--Livereload script rendered -->
   <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>

@@ -28,32 +28,29 @@ var validateLocalStrategyEmail = function (email) {
  * User Schema
  */
 var UserSchema = new Schema({
-  // firstName: {
-  //   type: String,
-  //   trim: true,
-  //   default: '',
-  //   validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-  // },
-  // lastName: {
-  //   type: String,
-  //   trim: true,
-  //   default: '',
-  //   validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-  // },
-  // displayName: {
-  //   type: String,
-  //   trim: true
-  // },
+
+  _id: {
+    type: String,
+    required: true,
+    index: true,
+    unique: true,
+    default: function() {
+        var b64 = new Buffer(new mongoose.mongo.ObjectID().toString()).toString('base64');
+        return b64;
+    }
+  },
   name: {
     type: String,
     trim: true,
-    validate: [validateLocalStrategyProperty, "Please fill in your name"]
+    default: "",
+    required: "Please your name is required",
+    validate: [validateLocalStrategyProperty, 'Please fill your name']
   },
   email: {
     type: String,
     index: {
-      unique: true,
-      sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
+        unique: true,
+        sparse: true // For this to work on a previously indexed field, the index must be dropped & the application restarted.
     },
     lowercase: true,
     trim: true,
@@ -66,13 +63,7 @@ var UserSchema = new Schema({
     required: 'Please fill in your phone number',
     trim: true
   },
-  // username: {
-  //   type: String,
-  //   unique: 'Username already exists',
-  //   required: 'Please fill in a username',
-  //   lowercase: true,
-  //   trim: true
-  // },
+
   password: {
     type: String,
     default: ''
@@ -105,6 +96,7 @@ var UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
+
   /* For reset password */
   resetPasswordToken: {
     type: String
@@ -186,18 +178,23 @@ UserSchema.statics.findUniquePhoneOrEmail = function (email, phone, suffix, call
    });
  };
 
-UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
+// UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
+UserSchema.statics.findUniqueEmail = function (email, suffix, callback) {
   var _this = this;
-  var possibleUsername = username.toLowerCase() + (suffix || '');
+  // var possibleUsername = username.toLowerCase() + (suffix || '');
+  var possibleEmail = email.toLowerCase() + (suffix || '');
 
   _this.findOne({
-    username: possibleUsername
+    // username: possibleUsername
+    email: possibleEmail
   }, function (err, user) {
     if (!err) {
       if (!user) {
-        callback(possibleUsername);
+        // callback(possibleUsername);
+        callback(possibleEmail)
       } else {
-        return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
+        // return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
+        return _this.findUniqueEmail(email, (suffix || 0) + 1, callback);
       }
     } else {
       callback(null);
